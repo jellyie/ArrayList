@@ -47,9 +47,20 @@ public class ArrayList {
 				temp = index - size;
 			for(int i = 0; i <= temp; i++) {
 				increaseSize();
-				//System.out.println(this.size());
 			}
-		arraylist[index] = x;
+		
+		ArrayList tmp = new ArrayList(this.size());
+	
+		for(int i = 0; i< this.size(); i++) {
+			if(i == index)
+				tmp.add(x);
+			tmp.add(arraylist[i]);
+		}
+		
+		for(int i = 0; i < this.size(); i++) {
+			arraylist[i] = tmp.get(i);
+		}
+		
 			
 	}
 	
@@ -59,8 +70,6 @@ public class ArrayList {
 	private void increaseSize() {
 		int new_size = arraylist.length + 1;
 		arraylist = Arrays.copyOf(arraylist, new_size);
-		//System.out.println("This is the new size: " + arraylist.length );
-		//System.out.println("This is the size variable: " + this.size());
 	}
 	
 	/**
@@ -69,8 +78,6 @@ public class ArrayList {
 	 * @return          element at given index
 	 */
 	public Object get(int index) {
-		//System.out.println("This is the size variable: " + this.size());
-		//System.out.println("This is index: "+index);
 		if(index < this.size())
 			return arraylist[index];
 		else
@@ -152,7 +159,9 @@ public class ArrayList {
 			}
 			arraylist = temp;
 	}
-	
+	/**
+	 * A method that prints the list to console.
+	 */
 	public void display() {
 		for (int i = 0; i < this.size(); i++) {
 			if(i == 0) {
