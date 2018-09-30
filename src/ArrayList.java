@@ -11,7 +11,7 @@ public class ArrayList {
 	
 	/**
 	 * Constructor that accepts a parameter of type int and sets the size to this parameter.
-	 * @param  n    integer that determines the size of an ArrayList object //change
+	 * @param  n    integer that determines the size of an ArrayList object 
 	 */
 	public ArrayList(int n) {
 		arraylist = new Object[n];
