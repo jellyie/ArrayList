@@ -1,4 +1,8 @@
-
+/**
+ * A program that mimics the pre-existing ArrayList class in the Java library.
+ * @author Irene Ong
+ * @version 1.0
+ */
 public class ArrayList {
 	private Object[] arraylist;
 	
