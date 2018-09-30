@@ -159,6 +159,7 @@ public class ArrayList {
 			}
 			arraylist = temp;
 	}
+	
 	/**
 	 * A method that prints the list to console.
 	 */
