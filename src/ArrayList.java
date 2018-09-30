@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * A program that mimics the pre-existing ArrayList class in the Java library.
  * @author Irene Ong
@@ -5,12 +7,14 @@
  */
 public class ArrayList {
 	private Object[] arraylist;
+	private static final int default_capacity = 10;
+	private int size = 0;
 	
 	/**
 	 * Default constructor that initializes this list with a capacity of 10.
 	 */
 	public ArrayList() {
-		arraylist = new Object[10];
+		arraylist = new Object[default_capacity];
 	}
 	
 	/**
@@ -19,6 +23,7 @@ public class ArrayList {
 	 */
 	public ArrayList(int n) {
 		arraylist = new Object[n];
+		
 	}
 	
 	/**
@@ -26,7 +31,9 @@ public class ArrayList {
 	 * @param  x    element to be inserted at the end of this list
 	 */
 	public void add(Object x) {
-		
+		if(size == arraylist.length)
+			increaseSize();
+		arraylist[size++] = x;
 	}
 	
 	/**
@@ -35,7 +42,25 @@ public class ArrayList {
 	 * @param  x        element to be inserted at specified index in this list 
 	 */
 	public void add(int index, Object x) {
-		
+		int temp = 0;
+		if(index > size)
+				temp = index - size;
+			for(int i = 0; i <= temp; i++) {
+				increaseSize();
+				//System.out.println(this.size());
+			}
+		arraylist[index] = x;
+			
+	}
+	
+	/**
+	 * A method that increases the capacity of this list by one index.
+	 */
+	private void increaseSize() {
+		int new_size = arraylist.length + 1;
+		arraylist = Arrays.copyOf(arraylist, new_size);
+		//System.out.println("This is the new size: " + arraylist.length );
+		//System.out.println("This is the size variable: " + this.size());
 	}
 	
 	/**
@@ -44,7 +69,12 @@ public class ArrayList {
 	 * @return          element at given index
 	 */
 	public Object get(int index) {
-		return null;
+		//System.out.println("This is the size variable: " + this.size());
+		//System.out.println("This is index: "+index);
+		if(index < this.size())
+			return arraylist[index];
+		else
+			throw new ArrayIndexOutOfBoundsException();
 	}
 	
 	/**
@@ -52,7 +82,7 @@ public class ArrayList {
 	 *@return   integer that represents the number of elements in this list
 	 */
 	public int size() {
-		return 0;
+		return arraylist.length;
 	}
 	
 	/**
@@ -60,7 +90,12 @@ public class ArrayList {
 	 * @return   true if this list is empty
 	 */
 	public boolean isEmpty() {
-		return false;
+		boolean isEmpty = true;
+		for(Object o: arraylist) {
+			if(o != null)
+				isEmpty = false;
+		}
+		return isEmpty;
 	}
 	
 	/**
@@ -69,7 +104,12 @@ public class ArrayList {
 	 * @return       true if this list contains the specified element
 	 */
 	public boolean isIn(Object ob) {
-		return false;
+		boolean isIn = false;
+		for(Object o: arraylist) {
+			if(o == ob)
+				isIn = true;
+		}
+		return isIn;
 	}
 	
 	/**
@@ -78,7 +118,18 @@ public class ArrayList {
 	 * @return      integer indicating location (index) of the element
 	 */
 	public int find(Object n) {
-		return 0;
+		int index = 0;
+		if(this.isIn(n)) {
+			for(int i = 0; i < this.size(); i++) {
+				if(arraylist[i] == n)
+					index = i; 
+			}
+		}else {
+			System.out.println("Object does not exist in this list.");
+			throw new RuntimeException("Object does not exist in this list.");
+			
+		}
+		return index;
 	}
 	
 	/**
@@ -86,6 +137,32 @@ public class ArrayList {
 	 * @param  n    element to be removed
 	 */
 	public void remove(Object n) {
-		
+		Object[] temp = new Object[this.size()-1];
+		int index = 0;
+		int tmpindex = index;
+		if(this.isIn(n))
+			index = this.find(n);
+			for(int i = 0; i < this.size(); i++) {
+				if(i != index) {
+					if(i != 0)
+						tmpindex++;
+					temp[tmpindex] = arraylist[i];
+					
+				}
+			}
+			arraylist = temp;
+	}
+	
+	public void display() {
+		for (int i = 0; i < this.size(); i++) {
+			if(i == 0) {
+				System.out.print("["+this.get(i)+", ");
+			}else if(i == this.size()-1) {
+				System.out.println(this.get(i)+"]");
+			}else {
+				System.out.print(this.get(i)+", ");
+			}
+					
+		}
 	}
 }
